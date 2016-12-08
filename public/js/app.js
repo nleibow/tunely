@@ -39,8 +39,10 @@ sampleAlbums.push({
 
 $(document).ready(function() {
   console.log('app.js loaded!');
+  renderAlbum();
 
 });
+
 
 
 
@@ -50,9 +52,16 @@ $(document).ready(function() {
 function renderAlbum(album) {
   console.log('rendering album:', album);
 
+
+   $.get('http://localhost:3000/api/albums', function(res, req){
+  var kanyes = res
+  console.log(kanyes[0]);
+
+
+for (var i = 0; i < kanyes.length; i++) {
   var albumHtml =
   "        <!-- one album -->" +
-  "        <div class='row album' data-album-id='" + "HARDCODED ALBUM ID" + "'>" +
+  "        <div class='row album' data-album-id='" + "HARDCODED ALBUM NAME" + "'>" +
   "          <div class='col-md-10 col-md-offset-1'>" +
   "            <div class='panel panel-default'>" +
   "              <div class='panel-body'>" +
@@ -64,16 +73,16 @@ function renderAlbum(album) {
   "                  <div class='col-md-9 col-xs-12'>" +
   "                    <ul class='list-group'>" +
   "                      <li class='list-group-item'>" +
-  "                        <h4 class='inline-header'>Album Name:</h4>" +
-  "                        <span class='album-name'>" + "HARDCODED ALBUM NAME" + "</span>" +
+  "                        <h4 class='inline-header'>Album Name:"+"    "+kanyes[i].name+" </h4>" +
+  "                        <span class='album-name'>" + "</span>" +
   "                      </li>" +
   "                      <li class='list-group-item'>" +
-  "                        <h4 class='inline-header'>Artist Name:</h4>" +
-  "                        <span class='artist-name'>" +  "HARDCODED ARTIST NAME"+ "</span>" +
+  "                        <h4 class='inline-header'>Artist Name:"+"    "+kanyes[i].artistName+"</h4>" +
+  "                        <span class='artist-name'>" + "</span>" +
   "                      </li>" +
   "                      <li class='list-group-item'>" +
-  "                        <h4 class='inline-header'>Released date:</h4>" +
-  "                        <span class='album-releaseDate'>" + "HARDCODED ALBUM RELEASE" + "</span>" +
+  "                        <h4 class='inline-header'>Released date:"+"    "+kanyes[i].releaseDate+"</h4>" +
+  "                        <span class='album-releaseDate'>" +  "</span>" +
   "                      </li>" +
   "                    </ul>" +
   "                  </div>" +
@@ -90,5 +99,13 @@ function renderAlbum(album) {
   "          <!-- end one album -->";
 
   // render to the page with jQuery
+  
+   $(albums).append(albumHtml);
+  }
+ 
 
-}
+});};
+
+
+
+

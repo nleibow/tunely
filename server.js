@@ -1,9 +1,14 @@
 // SERVER-SIDE JAVASCRIPT
 
 //require express in our app
+var mongoose = require('mongoose');
+
+
 var express = require('express');
 // generate a new express app and call it 'app'
 var app = express();
+
+var db = require('./models');
 
 // serve static files from public folder
 app.use(express.static(__dirname + '/public'));
@@ -48,6 +53,7 @@ albums.push({
 /**********
  * ROUTES *
  **********/
+ 
 
 /*
  * HTML Endpoints
@@ -73,9 +79,12 @@ app.get('/api', function api_index (req, res){
   });
 });
 
-app.get('/api/albums', function album_index(req, res){
 
-})
+app.get('/api/albums', function album_index(req, res){
+  db.Album.find({}, function(err, albums) {
+  res.json(albums);
+});});
+
 
 /**********
  * SERVER *
