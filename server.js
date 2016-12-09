@@ -1,7 +1,10 @@
 // SERVER-SIDE JAVASCRIPT
 
 //require express in our app
+var bodyParser = require('body-parser');
+
 var mongoose = require('mongoose');
+var request = require('request');
 
 
 var express = require('express');
@@ -12,6 +15,7 @@ var db = require('./models');
 
 // serve static files from public folder
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /************
  * DATABASE *
@@ -67,6 +71,11 @@ app.get('/', function homepage (req, res) {
 /*
  * JSON API Endpoints
  */
+app.post('/api/albums', function new_album(req, res){
+  db.Album.create(req.body, function(err, albums) {
+  res.json(albums);});
+});
+
 
 app.get('/api', function api_index (req, res){
   res.json({

@@ -102,7 +102,12 @@ for (var i = 0; i < kanyes.length; i++) {
   
    $(albums).append(albumHtml);
   }
- 
+ $('#form-horizontal').on('submit', function(event){
+  event.preventDefault();
+  console.log($(this).serialize());
+  $(this).trigger("reset");
+  var formData = $(this).serialize();
+ });
 
 });};
 
